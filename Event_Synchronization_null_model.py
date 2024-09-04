@@ -113,7 +113,7 @@ def EvSync(dat, tlen, nodes, core, noc, tm):
 #    for i in xrange(3,271):
 #       for j in xrange(3,i + 1):
 #          l = index_seasons[0].shape
-#          season1 = np.zeros(l, dtype = "bool")
+#          season1 = np.zeros(l, dtype = "bool")  
 #          season2 = np.zeros(l, dtype = "bool")
 #          index_seasons[0] = np.array(index_seasons[0], dtype = 'uint32')
 #          season1[:i] = 1
@@ -148,16 +148,16 @@ for tm in [30]:
    a = 0
    for i in xrange(3,676):
       for j in xrange(3,i + 1):
-         l = index_seasons[2].shape
-         season1 = np.zeros(l, dtype = "bool")
+         l = index_seasons[2].shape   
+         season1 = np.zeros(l, dtype = "bool")  #shape = index_season[2], values (False)
          season2 = np.zeros(l, dtype = "bool")
          index_seas = np.array(index_seasons[2], dtype = 'uint32')
-         season1[:i] = 1
+         season1[:i] = 1     # The values before index (i) were set to True.
          season2[:j] = 1
-         dat = np.zeros((nodes, tlen), dtype = "bool")
+         dat = np.zeros((nodes, tlen), dtype = "bool")  
          cor = np.zeros(2000)
          for k in xrange(2000):
-            dat[0, index_seas] = np.random.permutation(season1)
+            dat[0, index_seas] = np.random.permutation(season1) #Randomize season1 and assign it to dat.
             dat[1, index_seas] = np.random.permutation(season2)
             core = 0
             noc = 1
