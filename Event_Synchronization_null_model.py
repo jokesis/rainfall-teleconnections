@@ -8,10 +8,10 @@ from scipy import weave
 import scipy.stats as st
 
 
-tlen = 5844
-mnoe = 270
+tlen = 5844  #length of data
+mnoe = 270   #
 nodes = 2
-y = 16
+y = 16       #years
 
 index_seasons = np.zeros(4, dtype = 'object')
 index_seasons[0] = np.arange(0, 59, 1)
