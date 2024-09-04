@@ -45,9 +45,9 @@ for i in range(0, y - 1):
    index_season[3] = np.concatenate((index_season[3], np.arange(608 + 365 * i, 699 + 365 * i, 1)))
 
 def ec_wd(ts, perc):
-   th = st.scoreatpercentile(ts[ts > 1], perc)
+   th = st.scoreatpercentile(ts[ts > 1], perc)  # pr>1mm
    ts = np.where(ts > th)[0]
-   noe = ts.shape[0]
+   noe = ts.shape[0]         #number of events
    if noe > 2 and th > 2:
       return ts, noe, th
    else:
@@ -56,8 +56,8 @@ def ec_wd(ts, perc):
 
 
 for perc in xrange(80, 100):
-   for j in [2]:
-      mnoe = index_season[j].shape[0] * (1 - perc / 100.)
+   for j in [2]:    #JJA
+      mnoe = index_season[j].shape[0] * (1 - perc / 100.)  #max noe
       print mnoe
       ev = np.zeros((n, int(mnoe) + 1), dtype = 'uint16')
       noe = np.zeros(n, dtype = 'uint16')
