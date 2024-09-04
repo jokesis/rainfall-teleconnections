@@ -66,11 +66,11 @@ for perc in xrange(80, 100):
          rain = np.zeros((t, lo))
          precip = pcp[index_season[j], l, :]
          if np.ma.is_masked(precip) is True:
-            rain[index_season[j], :] = pcp[index_season[j], l, :].filled(0)
+            rain[index_season[j], :] = pcp[index_season[j], l, :].filled(0)  # nan to 0 
          else:
             rain[index_season[j], :] = pcp[index_season[j], l, :]
          for k in xrange(lo):
-            events, noe[l * lo + k], th[l * lo + k] = ec_wd(rain[:,k], perc)
+            events, noe[l * lo + k], th[l * lo + k] = ec_wd(rain[:,k], perc)  # calculate indices in each grid points
             ev[l * lo + k, :noe[l * lo + k]] = events
       np.save('trmm7_global_wd_score_cor_seasonal_rain_perc%d_season%d'%(perc, j), th)
       np.save('/p/tmp/boers/trmm7_global_wd_events_cor_seasonal_rain_perc%d_season%d'%(perc, j), ev)
@@ -81,7 +81,7 @@ for perc in xrange(80, 100):
 
       for i in xrange(ev.shape[0]):
           noce = np.where(np.diff(ev[i]) == 1)[0].shape[0]
-          ev_nb[i] = np.concatenate((np.delete(ev[i], np.where(np.diff(ev[i]) == 1)[0]+1), np.zeros(noce)))
-          nob[i] = np.where(ev_nb[i] != 0)[0].shape[0]
+          ev_nb[i] = np.concatenate((np.delete(ev[i], np.where(np.diff(ev[i]) == 1)[0]+1), np.zeros(noce))) # index of consecutive events and zeros; 
+          nob[i] = np.where(ev_nb[i] != 0)[0].shape[0]      # number of consecutive events 
       np.save('/p/tmp/boers/trmm7_global_wd_bursts_cor_seasonal_rain_perc%d_season%d.npy'%(perc, j), ev_nb)
       np.save('trmm7_global_wd_nob_cor_seasonal_rain_perc%d_season%d'%(perc, j), nob)
